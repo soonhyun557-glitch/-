@@ -1,0 +1,25 @@
+name: Jeju weather oracle (testnet)
+on:
+  schedule:
+    - cron: '*/5 * * * *' # UTC; GitHub Actions may be delayed and is not second-exact
+  workflow_dispatch:
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: oracle-report
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          
+      - run: npm install --no-audit --no-fund
+      - run: npm run check
+        env:
+          BIFROST_RPC: ${{ secrets.BIFROST_RPC }}
+          ORACLE_ADDRESS: ${{ secrets.ORACLE_ADDRESS }}
+          ESCROW_ADDRESS: ${{ secrets.ESCROW_ADDRESS }}
+          ORACLE_REPORTER_PRIVATE_KEY: ${{ secrets.ORACLE_REPORTER_PRIVATE_KEY }}

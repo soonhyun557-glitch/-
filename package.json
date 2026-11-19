@@ -1,0 +1,1 @@
+{"name":"jeju-event-weather-oracle","private":true,"type":"module","scripts":{"check":"node oracle.mjs","test":"node --test oracle.test.mjs"},"dependencies":{"ethers":"^6.15.0"},"engines":{"node":">=20"}}
