@@ -45,7 +45,7 @@ export async function main() {
   console.log(`Events found: ${count}`);
   for(let id=1;id<=count;id++) {
     try {
-      const e=await escrow.getEvent(id);
+      const e=await escrow.getFunction('getEvent(uint256)')(id);
       const eventTime=Number(e.eventTime);
       const cutoff=eventTime-CUTOFF_BEFORE_SECONDS;
       if(now<cutoff || now>eventTime+86400 || Number(e.oracleReportedAt)!==0)continue;
